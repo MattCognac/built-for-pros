@@ -1,0 +1,113 @@
+/* v2 route only — washed black canvas, elevated surfaces, readable contrast */
+
+.v2-root {
+  --v2-canvas: #09090b;
+  --v2-canvas-soft: #0c0c0e;
+  --v2-elevated: #121214;
+  --v2-elevated-deep: #0e0e10;
+  /* For header glass: rgb(var(--v2-header-tint) / <alpha>) */
+  --v2-header-tint: 10 10 11;
+  --v2-border: rgb(255 255 255 / 0.07);
+  --v2-border-hover: rgb(255 255 255 / 0.12);
+  --v2-fg: #fafafa;
+  --v2-muted: #a1a1aa;
+  --v2-faint: #71717a;
+
+  /*
+   * Icon frames (Lucide inside)
+   * main — solid brand surface, white glyph, glow (e.g. How it works steps)
+   * secondary — tinted brand surface, brand glyph, subtle ring (e.g. Services grid)
+   */
+  --v2-icon-main-shadow: 0 8px 24px -8px rgb(249 99 2 / 0.45);
+  --v2-icon-secondary-bg: rgb(249 99 2 / 0.1);
+  --v2-icon-secondary-ring: rgb(249 99 2 / 0.15);
+
+  color-scheme: dark;
+}
+
+/* Hero lock-screen phone — notification row enter (from top) */
+@keyframes v2-lock-notif-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.v2-hero-lock-notif-enter {
+  animation: v2-lock-notif-enter 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes v2-lock-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.v2-hero-lock-float {
+  animation: v2-lock-float 14s ease-in-out infinite;
+}
+
+@keyframes v2-lock-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.v2-hero-lock-progress {
+  animation: v2-lock-progress var(--v2-lock-cycle, 7000ms) linear both;
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-hero-lock-float,
+  .v2-hero-lock-notif-enter,
+  .v2-hero-lock-progress {
+    animation: none !important;
+  }
+}
+
+/* Slower hero text reveal than global scroll-reveal */
+.v2-hero .scroll-reveal {
+  transition-duration: 1.15s !important;
+}
+
+/* Softer focus rings on dark chrome */
+.v2-root :where(a, button, summary, input):focus-visible {
+  --tw-ring-offset-color: var(--v2-canvas);
+}
+
+.v2-root ::selection {
+  background: rgb(249 99 2 / 0.22);
+  color: var(--v2-fg);
+}
+
+/* Section rhythm: optional utility */
+.v2-section {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 640px) {
+  .v2-section {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
