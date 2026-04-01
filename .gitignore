@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local editor / assistant config (keep out of the public repo)
+CLAUDE.md
+AGENTS.md
+.cursor/
+.cursorrules
