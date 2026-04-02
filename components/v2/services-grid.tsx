@@ -19,6 +19,8 @@ export function V2ServicesGrid() {
     const grid = gridRef.current;
     if (!grid) return;
 
+    let raf = 0;
+
     const measure = () => {
       const cards = [
         ...grid.querySelectorAll<HTMLElement>("[data-service-card]"),
@@ -39,21 +41,35 @@ export function V2ServicesGrid() {
       }
     };
 
+    const scheduleMeasure = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(measure);
+    };
+
     measure();
 
-    const ro = new ResizeObserver(measure);
-    ro.observe(grid);
+    // Do not use ResizeObserver on `grid`: applying minHeight changes the grid's
+    // size and re-enters the observer in a tight loop (visible as rapid flashing).
+    window.addEventListener("resize", scheduleMeasure, { passive: true });
 
     const mqMd = window.matchMedia("(min-width: 768px)");
     const mqLg = window.matchMedia("(min-width: 1024px)");
-    const onBreakpoint = () => measure();
-    mqMd.addEventListener("change", onBreakpoint);
-    mqLg.addEventListener("change", onBreakpoint);
+    mqMd.addEventListener("change", scheduleMeasure);
+    mqLg.addEventListener("change", scheduleMeasure);
+
+    const vv = window.visualViewport;
+    if (vv) {
+      vv.addEventListener("resize", scheduleMeasure);
+    }
 
     return () => {
-      ro.disconnect();
-      mqMd.removeEventListener("change", onBreakpoint);
-      mqLg.removeEventListener("change", onBreakpoint);
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", scheduleMeasure);
+      mqMd.removeEventListener("change", scheduleMeasure);
+      mqLg.removeEventListener("change", scheduleMeasure);
+      if (vv) {
+        vv.removeEventListener("resize", scheduleMeasure);
+      }
     };
   }, []);
 

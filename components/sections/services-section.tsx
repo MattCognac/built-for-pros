@@ -11,6 +11,7 @@ export function ServicesSection() {
           <SectionHeading
             eyebrow="Services"
             title="The full system behind your lead flow."
+            description="From your website to ads and reviews — one coordinated system, tuned every month."
             align="center"
           />
         </ScrollReveal>
@@ -20,7 +21,7 @@ export function ServicesSection() {
             {services.map((service) => (
               <div
                 key={service.title}
-                className="flex h-full min-h-0 flex-col bg-white p-7"
+                className="flex h-full min-h-0 flex-col bg-white p-7 transition-colors hover:bg-gray-50"
               >
                 <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[color:var(--brand-soft)] text-[color:var(--brand)]">
                   {renderServiceIcon(service.icon)}

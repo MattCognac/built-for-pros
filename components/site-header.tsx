@@ -5,13 +5,20 @@ import { ArrowUpRight, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { BrandLogo } from "@/components/brand-logo";
-import { navItems, siteConfig } from "@/content/site";
+import { siteConfig } from "@/content/site";
 
-/** Glass ramps from 0→1 as scroll passes between these fractions of viewport height. */
+const navItems = [
+  { label: "How it works", href: "#how-it-works" },
+  { label: "Services", href: "#services" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "About", href: "#about" },
+  { label: "Free guide", href: "#lead-magnet" },
+  { label: "FAQ", href: "#faq" },
+] as const;
+
 const GLASS_SCROLL_START = 0.02;
 const GLASS_SCROLL_END = 0.05;
 
-/** Max opacity for the gray-950 tint (higher = darker on light page sections). */
 const GLASS_BG_ALPHA = 0.9;
 
 const desktopNavLinkClassName =
@@ -68,7 +75,7 @@ export function SiteHeader() {
           <BrandLogo className="text-sm tracking-[0.2em] text-white md:text-base lg:text-[1.0625rem]" />
         </Link>
 
-        <nav className="col-start-2 row-start-1 hidden min-w-0 items-center justify-center gap-1 md:flex lg:gap-3">
+        <nav className="col-start-2 row-start-1 hidden min-w-0 items-center justify-center gap-0.5 md:flex lg:gap-2">
           {navItems.map((item) => (
             <a key={item.href} href={item.href} className={desktopNavLinkClassName}>
               {item.label}

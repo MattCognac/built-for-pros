@@ -6,7 +6,8 @@ import { HowItWorksSection } from "@/components/sections/how-it-works-section";
 import { LeadMagnetSection } from "@/components/sections/lead-magnet-section";
 import { PricingSection } from "@/components/sections/pricing-section";
 import { ServicesSection } from "@/components/sections/services-section";
-import { ValuePropositionSection } from "@/components/sections/value-proposition-section";
+import { SocialProofBanner } from "@/components/sections/social-proof-banner";
+import { WhyItMattersSection } from "@/components/sections/why-it-matters-section";
 import { ScrollAnchorHandler } from "@/components/scroll-anchor-handler";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -25,7 +26,8 @@ export default function Home() {
       <ScrollAnchorHandler />
       <main>
         <HeroSection />
-        <ValuePropositionSection />
+        <SocialProofBanner />
+        <WhyItMattersSection />
         <HowItWorksSection />
         <ServicesSection />
         <PricingSection />

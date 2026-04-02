@@ -5,21 +5,52 @@ import { founderStory, siteConfig } from "@/content/site";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
+const stats = [
+  { value: "10+", label: "Years in the trades" },
+  { value: "100%", label: "Hands-on, every client" },
+  { value: "24/7", label: "Site monitoring" },
+] as const;
+
 export function AboutSection() {
   return (
     <section id="about" className="anchor-target section-shell">
       <div className="content-shell">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
           <ScrollReveal animation="fade-left">
             <div>
               <SectionHeading
                 eyebrow="About"
-                title="Built by someone who understands contractor work."
+                title={
+                  <>
+                    The &ldquo;Built for Pros&rdquo;
+                    <br />
+                    Mission
+                  </>
+                }
               />
 
               <div className="mt-8 grid gap-5 text-lg leading-8 text-gray-600">
                 {founderStory.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+
+              <blockquote className="mt-8 rounded-r-xl border-l-2 border-[color:var(--brand)] bg-gray-50 py-1 pl-5 text-base italic leading-7 text-gray-500">
+                &ldquo;The good contractors don&rsquo;t need another agency.
+                They need one person who gets it and handles the whole
+                thing.&rdquo;
+              </blockquote>
+
+              <div className="mt-10 grid grid-cols-3 gap-6 border-t border-gray-200 pt-10">
+                {stats.map((stat) => (
+                  <div key={stat.label}>
+                    <p className="text-2xl font-bold tabular-nums text-gray-950">
+                      {stat.value}
+                    </p>
+                    <p className="mt-1 text-xs font-medium uppercase tracking-wider text-gray-400">
+                      {stat.label}
+                    </p>
+                  </div>
                 ))}
               </div>
             </div>

@@ -1,36 +1,49 @@
-import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 import { siteConfig } from "@/content/site";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 export function FinalCtaSection() {
   return (
-    <section className="section-shell">
-      <div className="content-shell">
-        <ScrollReveal>
-          <div className="rounded-2xl bg-[color:var(--brand)] px-8 py-14 text-center text-white sm:px-12 sm:py-20">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
-              Let&apos;s talk
-            </p>
-            <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-              Ready to start getting the calls you deserve?
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-white/80">
-              No pressure, no pitch deck — just an honest conversation about
-              whether this is the right fit.
-            </p>
+    <section className="relative overflow-hidden px-5 py-24 sm:px-8 md:py-32">
+      <Image
+        src="/cta-steel.jpg"
+        alt=""
+        fill
+        className="object-cover opacity-[0.18]"
+        sizes="100vw"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/85 to-gray-950/55" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-gray-950 to-transparent" />
 
-            <div className="mt-10">
-              <a
-                href={siteConfig.primaryCtaHref}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex min-h-13 items-center justify-center gap-2 rounded-full bg-white px-8 text-sm font-bold text-gray-950 transition hover:bg-gray-100"
-              >
-                {siteConfig.primaryCtaLabel}
-                <ArrowUpRight className="size-4" strokeWidth={2} />
-              </a>
-            </div>
+      <div className="relative mx-auto max-w-4xl text-center">
+        <ScrollReveal>
+          <h2 className="text-balance text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+            Stop chasing leads.
+            <br />
+            <span className="text-[color:var(--brand)]">
+              Start booking jobs.
+            </span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-gray-400">
+            Schedule your free 15-minute growth audit. We&apos;ll look at your
+            current presence and show you exactly what&apos;s missing from your
+            pipeline.
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal delay={200}>
+          <div className="mt-10 flex justify-center">
+            <a
+              href={siteConfig.primaryCtaHref}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[color:var(--brand)] px-7 text-sm font-bold text-white shadow-[0_2px_0_rgb(0_0_0_/_0.15)] transition hover:bg-[color:var(--brand-strong)] active:translate-y-px sm:w-auto sm:px-8"
+            >
+              Let&apos;s Talk Growth
+              <ArrowRight className="size-4" strokeWidth={2.5} />
+            </a>
           </div>
         </ScrollReveal>
       </div>

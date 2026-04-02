@@ -8,19 +8,21 @@ const brandStyles: Record<string, string> = {
   Core_Site: "font-bold uppercase tracking-[0.18em]",
 };
 
+const brands = [...socialProofBrands, ...socialProofBrands];
+
 export function SocialProofBanner() {
   return (
-    <section className="border-y border-white/[0.06] bg-gray-950 py-10 sm:py-12">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <p className="text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-500">
-          Trusted by the industry&apos;s best builders
-        </p>
+    <section className="border-y border-gray-200 bg-gray-50 py-12 sm:py-14">
+      <p className="text-center text-[11px] font-semibold uppercase tracking-[0.28em] text-gray-400">
+        Trusted by the industry&apos;s best builders
+      </p>
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 sm:gap-x-14 md:gap-x-20">
-          {socialProofBrands.map((brand) => (
+      <div className="relative mt-9 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+        <div className="flex w-max animate-marquee items-center gap-12 sm:gap-16 md:gap-24">
+          {brands.map((brand, i) => (
             <span
-              key={brand}
-              className={`text-base text-gray-500 sm:text-lg ${brandStyles[brand] ?? "font-medium uppercase tracking-wider"}`}
+              key={`${brand}-${i}`}
+              className={`shrink-0 text-base text-gray-400 sm:text-lg ${brandStyles[brand] ?? "font-medium uppercase tracking-wider"}`}
             >
               {brand}
             </span>

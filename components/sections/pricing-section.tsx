@@ -1,6 +1,7 @@
+import { ArrowRight } from "lucide-react";
+
 import { pricingPlans, siteConfig } from "@/content/site";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { ArrowRight } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 export function PricingSection() {
@@ -24,41 +25,42 @@ export function PricingSection() {
           {pricingPlans.map((plan, index) => (
             <ScrollReveal key={plan.name} delay={index * 120}>
               <div
-                className={`flex h-full flex-col rounded-2xl border p-7 sm:p-8 ${
+                className={`relative flex h-full flex-col rounded-2xl p-7 sm:p-8 ${
                   plan.featured
-                    ? "border-[color:var(--brand)] bg-white text-gray-950"
-                    : "border-gray-800 bg-gray-900 text-white"
+                    ? "border border-[color:var(--brand)] bg-white text-gray-950 shadow-[0_0_0_1px_rgb(249_99_2_/_0.12),0_24px_48px_-16px_rgb(0_0_0_/_0.35)]"
+                    : "border border-gray-800 bg-gray-900 text-white"
                 }`}
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p
-                      className={`text-xl font-bold ${plan.featured ? "text-gray-950" : "text-white"}`}
-                    >
-                      {plan.name}
+                {plan.featured ? (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[color:var(--brand)] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white shadow-md">
+                    Popular
+                  </span>
+                ) : null}
+
+                <div>
+                  <p
+                    className={`text-sm font-semibold uppercase tracking-wider ${
+                      plan.featured ? "text-gray-500" : "text-gray-500"
+                    }`}
+                  >
+                    {plan.name}
+                  </p>
+                  <div className="mt-3 flex flex-wrap items-baseline gap-2">
+                    <p className="text-4xl font-bold tracking-tight text-[color:var(--brand)]">
+                      {plan.price}
                     </p>
-                    <div className="mt-2 flex flex-wrap items-baseline gap-2">
-                      <p className="text-3xl font-bold tracking-tight text-[color:var(--brand)]">
-                        {plan.price}
-                      </p>
-                      {plan.priceSuffix ? (
-                        <span
-                          className={`-translate-y-1 rounded-md border px-2 py-0.5 text-[0.65rem] font-semibold leading-none tracking-wide ${
-                            plan.featured
-                              ? "border-gray-200 bg-gray-50 text-gray-500"
-                              : "border-gray-600/80 bg-gray-800/50 text-gray-400"
-                          }`}
-                        >
-                          {plan.priceSuffix}
-                        </span>
-                      ) : null}
-                    </div>
+                    {plan.priceSuffix ? (
+                      <span
+                        className={`rounded-md border px-2 py-0.5 text-[0.65rem] font-semibold leading-none tracking-wide ${
+                          plan.featured
+                            ? "border-gray-200 bg-gray-50 text-gray-500"
+                            : "border-gray-600/80 bg-gray-800/50 text-gray-400"
+                        }`}
+                      >
+                        {plan.priceSuffix}
+                      </span>
+                    ) : null}
                   </div>
-                  {plan.featured ? (
-                    <span className="rounded-full bg-[color:var(--brand)] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
-                      Popular
-                    </span>
-                  ) : null}
                 </div>
 
                 <p

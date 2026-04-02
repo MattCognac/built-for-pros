@@ -9,7 +9,7 @@ export function LeadMagnetSection() {
       className="anchor-target section-shell bg-gray-950"
     >
       <div className="content-shell">
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <ScrollReveal animation="fade-left">
             <div>
               <p className="eyebrow">
