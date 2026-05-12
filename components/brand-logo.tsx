@@ -8,7 +8,7 @@ type BrandLogoProps = {
 export function BrandLogo({ className }: BrandLogoProps) {
   return (
     <span
-      className={`flex items-center gap-[0.2em] font-bold uppercase ${className}`}
+      className={`flex items-center gap-[0.16em] font-bold uppercase ${className}`}
       aria-label="Built for Pros"
     >
       <svg

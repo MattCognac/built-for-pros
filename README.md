@@ -15,27 +15,34 @@ Marketing site for **Built for Pros** — subscription-based marketing for contr
 | Path | Purpose |
 |------|---------|
 | `app/page.tsx` | Main landing page |
-| `app/v2/` | Alternate landing layout and styles |
 | `app/privacy`, `app/terms` | Legal pages |
 | `app/api/lead/route.ts` | Lead form submissions (optional webhook) |
 | `content/site.ts` | Copy, navigation, pricing, FAQ, and other site content |
 | `lib/seo.ts` | Metadata helpers |
-| `components/` | Shared UI, sections, and v2-specific components |
+| `components/sections/` | Landing page sections |
+| `components/ui/` | Shared UI helpers |
 
 ## Getting started
+
+## Local dev ports
+
+- Marketing site: [http://localhost:3000](http://localhost:3000)
+- CRM: [http://localhost:3001](http://localhost:3001)
+
+The marketing app's dev scripts pin this app to port `3000` so it does not collide with the CRM.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). The v2 experience is at [http://localhost:3000/v2](http://localhost:3000/v2).
+Open [http://localhost:3000](http://localhost:3000).
 
 ## Scripts
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Development server (Turbopack) |
+| `npm run dev` | Development server on port `3000` |
 | `npm run build` | Production build |
 | `npm run start` | Serve production build |
 | `npm run lint` | ESLint |

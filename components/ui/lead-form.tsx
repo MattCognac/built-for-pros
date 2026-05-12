@@ -31,9 +31,7 @@ export function LeadForm() {
     try {
       const response = await fetch("/api/lead", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email }),
       });
 
@@ -54,28 +52,32 @@ export function LeadForm() {
   const isSubmitting = status === "submitting";
 
   return (
-    <form className="grid gap-4" onSubmit={handleSubmit}>
+    <form className="grid gap-5" onSubmit={handleSubmit}>
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="grid gap-1.5">
-          <span className="text-sm font-medium text-gray-700">Name</span>
+        <label className="grid gap-2">
+          <span className="text-sm font-medium text-[color:var(--fg)]">
+            Name
+          </span>
           <input
             type="text"
             name="name"
             autoComplete="name"
             required
-            className="min-h-12 rounded-xl border border-gray-200 bg-gray-50 px-4 text-base text-gray-950 outline-none transition placeholder:text-gray-400 focus:border-[color:var(--brand)] focus:ring-2 focus:ring-[color:var(--brand-soft)]"
+            className="min-h-12 rounded-xl border border-[color:var(--input-border)] bg-[color:var(--input-bg)] px-4 text-base text-[color:var(--fg)] outline-none transition placeholder:text-[color:var(--faint)] focus:border-[color:var(--brand)] focus:ring-2 focus:ring-[color:var(--brand)]/25"
             placeholder="Your name"
           />
         </label>
 
-        <label className="grid gap-1.5">
-          <span className="text-sm font-medium text-gray-700">Email</span>
+        <label className="grid gap-2">
+          <span className="text-sm font-medium text-[color:var(--fg)]">
+            Email
+          </span>
           <input
             type="email"
             name="email"
             autoComplete="email"
             required
-            className="min-h-12 rounded-xl border border-gray-200 bg-gray-50 px-4 text-base text-gray-950 outline-none transition placeholder:text-gray-400 focus:border-[color:var(--brand)] focus:ring-2 focus:ring-[color:var(--brand-soft)]"
+            className="min-h-12 rounded-xl border border-[color:var(--input-border)] bg-[color:var(--input-bg)] px-4 text-base text-[color:var(--fg)] outline-none transition placeholder:text-[color:var(--faint)] focus:border-[color:var(--brand)] focus:ring-2 focus:ring-[color:var(--brand)]/25"
             placeholder="you@company.com"
           />
         </label>
@@ -102,7 +104,7 @@ export function LeadForm() {
       {message ? (
         <p
           className={`text-sm leading-6 ${
-            status === "error" ? "text-rose-600" : "text-emerald-600"
+            status === "error" ? "text-rose-500" : "text-emerald-500"
           }`}
           aria-live="polite"
         >

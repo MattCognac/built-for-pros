@@ -1,3 +1,5 @@
+import { headers } from "next/headers";
+
 import { AboutSection } from "@/components/sections/about-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { FinalCtaSection } from "@/components/sections/final-cta-section";
@@ -11,10 +13,14 @@ import { WhyItMattersSection } from "@/components/sections/why-it-matters-sectio
 import { ScrollAnchorHandler } from "@/components/scroll-anchor-handler";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { getHeroVariant } from "@/content/site";
+import { HERO_VARIANT_HEADER } from "@/lib/hero-test";
 import { createProfessionalServiceSchema } from "@/lib/seo";
 
-export default function Home() {
+export default async function Home() {
+  const requestHeaders = await headers();
   const schema = createProfessionalServiceSchema();
+  const heroVariant = getHeroVariant(requestHeaders.get(HERO_VARIANT_HEADER));
 
   return (
     <>
@@ -24,8 +30,8 @@ export default function Home() {
       />
       <SiteHeader />
       <ScrollAnchorHandler />
-      <main>
-        <HeroSection />
+      <main className="bg-[color:var(--canvas)] text-[color:var(--fg)]">
+        <HeroSection variant={heroVariant} />
         <SocialProofBanner />
         <WhyItMattersSection />
         <HowItWorksSection />

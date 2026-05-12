@@ -11,15 +11,15 @@ export const metadata: Metadata = createMetadata({
 
 export default function PrivacyPage() {
   return (
-    <main className="section-shell">
-      <article className="content-shell surface-card rounded-[32px] p-7 sm:p-10">
+    <main className="section-shell bg-[color:var(--canvas-soft)]">
+      <article className="content-shell rounded-[32px] border border-[color:var(--border-subtle)] bg-[color:var(--elevated)] p-7 shadow-[var(--shadow-soft)] sm:p-10">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[color:var(--brand-strong)]">
           Privacy Policy
         </p>
-        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-4xl">
           Privacy Policy
         </h1>
-        <div className="mt-8 grid gap-5 text-base leading-8 text-slate-600">
+        <div className="mt-8 grid gap-5 text-base leading-8 text-[color:var(--muted)]">
           <p>
             This is a launch placeholder privacy policy for Built for Pros. It should
             be replaced with a final policy that matches your actual data handling,
@@ -36,7 +36,7 @@ export default function PrivacyPage() {
         </div>
         <Link
           href="/"
-          className="mt-8 inline-flex rounded-full border border-black/8 px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-black/14 hover:text-slate-950"
+          className="mt-8 inline-flex rounded-full border border-[color:var(--border-subtle)] px-5 py-3 text-sm font-medium text-[color:var(--muted)] transition hover:border-[color:var(--border-hover)] hover:text-[color:var(--fg)]"
         >
           Back to home
         </Link>

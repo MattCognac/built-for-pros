@@ -11,9 +11,7 @@ type Lead = {
   id: string;
   service: string;
   source: string;
-  /** How the lead arrived — call, form, message, etc. */
   delivery: string;
-  /** App icon under `public/` */
   iconSrc: string;
 };
 
@@ -56,7 +54,7 @@ const LEADS: readonly Lead[] = [
 ];
 
 const progressStyle = {
-  ["--v2-lock-cycle" as string]: `${STEP_MS}ms`,
+  ["--hero-lock-cycle" as string]: `${STEP_MS}ms`,
 } as CSSProperties;
 
 function formatLockScreenDate(date: Date) {
@@ -66,7 +64,8 @@ function formatLockScreenDate(date: Date) {
       month: "short",
       day: "numeric",
     }).format(date);
-  } catch {
+  } catch (error) {
+    console.warn("Unable to format lock screen date.", error);
     return date.toDateString();
   }
 }
@@ -78,7 +77,8 @@ function formatLockScreenTime(date: Date) {
       minute: "2-digit",
       hour12: false,
     }).format(date);
-  } catch {
+  } catch (error) {
+    console.warn("Unable to format lock screen time.", error);
     const hours = `${date.getHours()}`.padStart(2, "0");
     const minutes = `${date.getMinutes()}`.padStart(2, "0");
     return `${hours}:${minutes}`;
@@ -87,9 +87,11 @@ function formatLockScreenTime(date: Date) {
 
 function getVisibleLeads(batchStart: number, count: number): Lead[] {
   const out: Lead[] = [];
+
   for (let i = 0; i < count; i++) {
     out.push(LEADS[(batchStart + i) % LEADS.length]);
   }
+
   out.reverse();
   return out;
 }
@@ -160,7 +162,7 @@ export function HeroLockScreenPhone() {
   return (
     <div
       aria-hidden="true"
-      className="v2-hero-lock-float pointer-events-none relative mx-auto flex w-[290px] flex-col items-center sm:w-[312px]"
+      className="hero-lock-float pointer-events-none relative mx-auto flex w-[290px] flex-col items-center sm:w-[312px]"
     >
       <div className="absolute inset-x-4 top-8 rounded-[2.5rem] bg-[radial-gradient(circle_at_50%_0%,rgb(249_99_2_/_0.14),transparent_55%)] blur-2xl" />
 
@@ -197,10 +199,10 @@ export function HeroLockScreenPhone() {
 
           <div className="relative z-10 mt-5 px-4 text-center">
             <p className="text-[11px] font-medium tracking-wide text-white/50 sm:text-[12px]">
-              {dateLabel || "\u2014"}
+              {dateLabel || "-"}
             </p>
             <p className="mt-1 text-[2.75rem] font-light leading-none tracking-[-0.02em] text-white/40 sm:text-[3rem]">
-              {timeLabel || "\u2014"}
+              {timeLabel || "-"}
             </p>
           </div>
 
@@ -210,7 +212,7 @@ export function HeroLockScreenPhone() {
                 key={`${stepKey}-${lead.id}-${i}`}
                 className={`rounded-[1.15rem] border border-white/[0.08] bg-white/[0.08] px-2.5 py-2 backdrop-blur-xl ${
                   !reducedMotion && i === 0 && visibleCount > 1
-                    ? "v2-hero-lock-notif-enter"
+                    ? "hero-lock-notif-enter"
                     : ""
                 }`}
               >
@@ -248,7 +250,7 @@ export function HeroLockScreenPhone() {
           <div className="relative z-10 mx-4 mb-2 h-px overflow-hidden rounded-full bg-white/[0.08]">
             <div
               key={stepKey}
-              className="v2-hero-lock-progress h-full rounded-full bg-[color:var(--brand)]/45"
+              className="hero-lock-progress h-full rounded-full bg-[color:var(--brand)]/45"
               style={progressStyle}
             />
           </div>
@@ -262,13 +264,10 @@ export function HeroLockScreenPhone() {
             </div>
             <div className="flex size-9 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.06]">
               <svg viewBox="0 0 24 24" className="size-[14px] text-white/60" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
-                <circle cx="12" cy="13" r="4" />
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.08 4.18 2 2 0 014.06 2h3a2 2 0 012 1.72c.12.91.33 1.79.62 2.63a2 2 0 01-.45 2.11L8 9.7a16 16 0 006.3 6.3l1.24-1.23a2 2 0 012.11-.45c.84.29 1.72.5 2.63.62A2 2 0 0122 16.92z" />
               </svg>
             </div>
           </div>
-
-          <div className="relative z-10 mx-auto mb-2 h-1 w-[28%] rounded-full bg-white/30" />
         </div>
       </div>
     </div>

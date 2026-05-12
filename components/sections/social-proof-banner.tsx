@@ -12,8 +12,8 @@ const brands = [...socialProofBrands, ...socialProofBrands];
 
 export function SocialProofBanner() {
   return (
-    <section className="border-y border-gray-200 bg-gray-50 py-12 sm:py-14">
-      <p className="text-center text-[11px] font-semibold uppercase tracking-[0.28em] text-gray-400">
+    <section className="border-y border-[color:var(--border-subtle)] bg-[color:var(--canvas-soft)] py-12 sm:py-14">
+      <p className="text-center text-[11px] font-semibold uppercase tracking-[0.28em] text-[color:var(--faint)]">
         Trusted by the industry&apos;s best builders
       </p>
 
@@ -22,7 +22,7 @@ export function SocialProofBanner() {
           {brands.map((brand, i) => (
             <span
               key={`${brand}-${i}`}
-              className={`shrink-0 text-base text-gray-400 sm:text-lg ${brandStyles[brand] ?? "font-medium uppercase tracking-wider"}`}
+              className={`shrink-0 text-base text-[color:var(--faint)] sm:text-lg ${brandStyles[brand] ?? "font-medium uppercase tracking-wider"}`}
             >
               {brand}
             </span>

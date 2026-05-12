@@ -12,7 +12,7 @@ function gridColumnCount(): number {
   return 1;
 }
 
-export function V2ServicesGrid() {
+export function ServicesGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -35,9 +35,10 @@ export function V2ServicesGrid() {
       if (gridColumnCount() === 1) return;
 
       const heights = cards.map((c) => c.getBoundingClientRect().height);
-      const maxH = Math.max(...heights);
+      const maxHeight = Math.max(...heights);
+
       for (const el of cards) {
-        el.style.minHeight = `${maxH}px`;
+        el.style.minHeight = `${maxHeight}px`;
       }
     };
 
@@ -48,8 +49,6 @@ export function V2ServicesGrid() {
 
     measure();
 
-    // Do not use ResizeObserver on `grid`: applying minHeight changes the grid's
-    // size and re-enters the observer in a tight loop (visible as rapid flashing).
     window.addEventListener("resize", scheduleMeasure, { passive: true });
 
     const mqMd = window.matchMedia("(min-width: 768px)");
@@ -57,9 +56,9 @@ export function V2ServicesGrid() {
     mqMd.addEventListener("change", scheduleMeasure);
     mqLg.addEventListener("change", scheduleMeasure);
 
-    const vv = window.visualViewport;
-    if (vv) {
-      vv.addEventListener("resize", scheduleMeasure);
+    const visualViewport = window.visualViewport;
+    if (visualViewport) {
+      visualViewport.addEventListener("resize", scheduleMeasure);
     }
 
     return () => {
@@ -67,8 +66,8 @@ export function V2ServicesGrid() {
       window.removeEventListener("resize", scheduleMeasure);
       mqMd.removeEventListener("change", scheduleMeasure);
       mqLg.removeEventListener("change", scheduleMeasure);
-      if (vv) {
-        vv.removeEventListener("resize", scheduleMeasure);
+      if (visualViewport) {
+        visualViewport.removeEventListener("resize", scheduleMeasure);
       }
     };
   }, []);
@@ -76,21 +75,21 @@ export function V2ServicesGrid() {
   return (
     <div
       ref={gridRef}
-      className="mt-14 grid items-stretch gap-px overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.06] shadow-[0_1px_0_rgb(255_255_255_/_0.03)_inset] md:grid-cols-2 lg:grid-cols-3"
+      className="mt-14 grid items-stretch gap-px overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--border-subtle)] shadow-[0_1px_0_rgb(255_255_255_/_0.03)_inset] md:grid-cols-2 lg:grid-cols-3"
     >
       {services.map((service) => (
         <div
           key={service.title}
           data-service-card
-          className="flex h-full min-h-0 flex-col bg-[var(--v2-elevated-deep)] p-7 transition-colors hover:bg-[var(--v2-elevated)]"
+          className="flex h-full min-h-0 flex-col bg-[color:var(--elevated-deep)] p-7 transition-colors hover:bg-[color:var(--elevated-strong)]"
         >
-          <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[color:var(--v2-icon-secondary-bg)] text-[color:var(--brand)] ring-1 ring-[color:var(--v2-icon-secondary-ring)]">
+          <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[color:var(--icon-secondary-bg)] text-[color:var(--brand)] ring-1 ring-[color:var(--icon-secondary-ring)]">
             {renderServiceIcon(service.icon)}
           </div>
-          <h3 className="mt-5 shrink-0 text-lg font-bold text-zinc-50">
+          <h3 className="mt-5 shrink-0 text-lg font-bold text-[color:var(--fg)]">
             {service.title}
           </h3>
-          <p className="mt-2 min-h-0 flex-1 text-base leading-7 text-zinc-400">
+          <p className="mt-2 min-h-0 flex-1 text-base leading-7 text-[color:var(--muted)]">
             {service.description}
           </p>
         </div>

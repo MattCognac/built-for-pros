@@ -8,7 +8,7 @@ export function PricingSection() {
   return (
     <section
       id="pricing"
-      className="anchor-target section-shell bg-gray-950 text-white"
+      className="anchor-target section-shell border-t border-[color:var(--feature-border-subtle)] bg-[color:var(--pricing-section-bg)]"
     >
       <div className="content-shell">
         <ScrollReveal>
@@ -17,18 +17,18 @@ export function PricingSection() {
             title="You're one choice away from a pipeline that delivers."
             description="We've built flexible plans that are designed to support your business wherever it's at."
             align="center"
-            light
+            tone="feature"
           />
         </ScrollReveal>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+        <div className="mt-16 grid gap-6 lg:grid-cols-3">
           {pricingPlans.map((plan, index) => (
             <ScrollReveal key={plan.name} delay={index * 120}>
               <div
-                className={`relative flex h-full flex-col rounded-2xl p-7 sm:p-8 ${
+                className={`flex h-full flex-col rounded-2xl p-7 sm:p-8 ${
                   plan.featured
-                    ? "border border-[color:var(--brand)] bg-white text-gray-950 shadow-[0_0_0_1px_rgb(249_99_2_/_0.12),0_24px_48px_-16px_rgb(0_0_0_/_0.35)]"
-                    : "border border-gray-800 bg-gray-900 text-white"
+                    ? "relative border border-[color:var(--brand)]/35 bg-[color:var(--pricing-featured-bg)] text-[color:var(--pricing-featured-fg)] shadow-[0_0_0_1px_rgb(249_99_2_/_0.12),var(--shadow-soft)]"
+                    : "border border-[color:var(--pricing-card-border)] bg-[color:var(--pricing-card-bg)] text-[color:var(--pricing-card-fg)] shadow-[0_1px_0_rgb(255_255_255_/_0.04)_inset] transition hover:border-[color:var(--feature-border-hover)]"
                 }`}
               >
                 {plan.featured ? (
@@ -39,9 +39,11 @@ export function PricingSection() {
 
                 <div>
                   <p
-                    className={`text-sm font-semibold uppercase tracking-wider ${
-                      plan.featured ? "text-gray-500" : "text-gray-500"
-                    }`}
+                    className={
+                      plan.featured
+                        ? "text-sm font-semibold uppercase tracking-wider text-[color:var(--pricing-featured-faint)]"
+                        : "text-sm font-semibold uppercase tracking-wider text-[color:var(--pricing-card-faint)]"
+                    }
                   >
                     {plan.name}
                   </p>
@@ -51,11 +53,11 @@ export function PricingSection() {
                     </p>
                     {plan.priceSuffix ? (
                       <span
-                        className={`rounded-md border px-2 py-0.5 text-[0.65rem] font-semibold leading-none tracking-wide ${
+                        className={
                           plan.featured
-                            ? "border-gray-200 bg-gray-50 text-gray-500"
-                            : "border-gray-600/80 bg-gray-800/50 text-gray-400"
-                        }`}
+                            ? "rounded-md border border-gray-200 bg-[color:var(--pricing-featured-subtle)] px-2 py-0.5 text-[0.65rem] font-semibold leading-none tracking-wide text-[color:var(--pricing-featured-muted)]"
+                            : "rounded-md border border-[color:var(--feature-border-subtle)] bg-[color:var(--feature-elevated-strong)] px-2 py-0.5 text-[0.65rem] font-semibold leading-none tracking-wide text-[color:var(--pricing-card-muted)]"
+                        }
                       >
                         {plan.priceSuffix}
                       </span>
@@ -64,7 +66,11 @@ export function PricingSection() {
                 </div>
 
                 <p
-                  className={`mt-4 text-sm leading-6 ${plan.featured ? "text-gray-600" : "text-gray-400"}`}
+                  className={
+                    plan.featured
+                      ? "mt-4 text-sm leading-6 text-[color:var(--pricing-featured-muted)]"
+                      : "mt-4 text-sm leading-6 text-[color:var(--pricing-card-muted)]"
+                  }
                 >
                   {plan.summary}
                 </p>
@@ -76,14 +82,14 @@ export function PricingSection() {
                       className={`flex items-start gap-2 text-sm leading-6 ${
                         i === 0
                           ? plan.featured
-                            ? "font-semibold text-gray-950"
-                            : "font-semibold text-white"
+                            ? "font-semibold text-[color:var(--pricing-featured-fg)]"
+                            : "font-semibold text-[color:var(--pricing-card-strong)]"
                           : plan.featured
-                            ? "text-gray-700"
-                            : "text-gray-300"
+                            ? "text-[color:var(--pricing-featured-muted)]"
+                            : "text-[color:var(--pricing-card-muted)]"
                       }`}
                     >
-                      <span className="shrink-0 text-[color:var(--brand)]">
+                      <span className="shrink-0 font-medium text-[color:var(--brand)]">
                         +
                       </span>
                       <span className="min-w-0 flex-1">{feature}</span>
@@ -98,8 +104,8 @@ export function PricingSection() {
                     rel="noreferrer"
                     className={`inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition ${
                       plan.featured
-                        ? "bg-[color:var(--brand)] text-white hover:bg-[color:var(--brand-strong)]"
-                        : "border border-gray-700 text-white hover:border-gray-500 hover:bg-gray-800"
+                        ? "bg-[color:var(--brand)] text-white shadow-[0_2px_0_rgb(0_0_0_/_0.12)] hover:bg-[color:var(--brand-strong)]"
+                        : "border border-[color:var(--feature-border-hover)] text-[color:var(--feature-fg)] hover:border-[color:var(--brand)]/35 hover:bg-[color:var(--feature-elevated-strong)]"
                     }`}
                   >
                     {siteConfig.primaryCtaLabel}
@@ -112,7 +118,7 @@ export function PricingSection() {
         </div>
 
         <ScrollReveal delay={200} animation="fade-in">
-          <p className="mx-auto mt-10 max-w-2xl text-center text-sm leading-7 text-gray-500">
+          <p className="mx-auto mt-12 max-w-2xl text-center text-sm leading-7 text-[color:var(--feature-faint)]">
             12-month commitment, no setup fees. Accelerator ad spend paid
             directly to Google (recommended $200–300/mo). Most clients see
             their plan pay for itself with a single job.

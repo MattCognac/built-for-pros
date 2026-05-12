@@ -41,7 +41,7 @@ export function RotatingText() {
   }, [advance]);
 
   return (
-    <span className="inline-flex overflow-hidden text-[color:var(--brand)]">
+    <span className="inline-flex overflow-visible text-[color:var(--brand)]">
       <span
         className={`inline-block transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           phase === "in"

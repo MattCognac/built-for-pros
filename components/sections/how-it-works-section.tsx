@@ -7,7 +7,7 @@ export function HowItWorksSection() {
   return (
     <section
       id="how-it-works"
-      className="anchor-target section-shell bg-gray-50"
+      className="anchor-target section-shell border-t border-[color:var(--border-subtle)] bg-[color:var(--canvas-soft)]"
     >
       <div className="content-shell">
         <ScrollReveal>
@@ -21,19 +21,19 @@ export function HowItWorksSection() {
         <div className="mt-14 grid gap-5 lg:grid-cols-3 lg:gap-6">
           {processSteps.map((step, index) => (
             <ScrollReveal key={step.title} delay={index * 120}>
-              <div className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+              <div className="flex h-full flex-col rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--elevated)] p-6 shadow-[0_1px_0_rgb(255_255_255_/_0.04)_inset] sm:p-8">
                 <div className="flex items-center gap-4">
-                  <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[color:var(--brand)] text-white shadow-[0_8px_24px_-8px_rgb(249_99_2_/_0.35)]">
+                  <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[color:var(--brand)] text-white shadow-[var(--icon-main-shadow)]">
                     {renderProcessIcon(step.icon)}
                   </div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--faint)]">
                     Step {index + 1}
                   </p>
                 </div>
-                <h3 className="mt-5 text-lg font-bold text-gray-950">
+                <h3 className="mt-5 text-lg font-bold text-[color:var(--fg)]">
                   {step.title}
                 </h3>
-                <p className="mt-2 text-base leading-7 text-gray-600">
+                <p className="mt-2 text-base leading-7 text-[color:var(--muted)]">
                   {step.description}
                 </p>
               </div>

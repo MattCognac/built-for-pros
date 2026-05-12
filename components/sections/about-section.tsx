@@ -11,9 +11,18 @@ const stats = [
   { value: "24/7", label: "Site monitoring" },
 ] as const;
 
+const aboutHighlights = [
+  "You work directly with me.",
+  "Professional from day one.",
+  "Designed to stay simple on your side.",
+] as const;
+
 export function AboutSection() {
   return (
-    <section id="about" className="anchor-target section-shell">
+    <section
+      id="about"
+      className="anchor-target section-shell border-t border-[color:var(--border-subtle)]"
+    >
       <div className="content-shell">
         <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
           <ScrollReveal animation="fade-left">
@@ -29,25 +38,25 @@ export function AboutSection() {
                 }
               />
 
-              <div className="mt-8 grid gap-5 text-lg leading-8 text-gray-600">
+              <div className="mt-8 grid gap-5 text-lg leading-8 text-[color:var(--muted)]">
                 {founderStory.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
               </div>
 
-              <blockquote className="mt-8 rounded-r-xl border-l-2 border-[color:var(--brand)] bg-gray-50 py-1 pl-5 text-base italic leading-7 text-gray-500">
+              <blockquote className="mt-8 rounded-r-xl border-l-2 border-[color:var(--brand)] bg-[color:var(--about-quote-bg)] py-4 pl-5 pr-5 text-base italic leading-7 text-[color:var(--about-quote-text)]">
                 &ldquo;The good contractors don&rsquo;t need another agency.
                 They need one person who gets it and handles the whole
                 thing.&rdquo;
               </blockquote>
 
-              <div className="mt-10 grid grid-cols-3 gap-6 border-t border-gray-200 pt-10">
+              <div className="mt-10 grid grid-cols-3 gap-6 border-t border-[color:var(--border-subtle)] pt-10">
                 {stats.map((stat) => (
                   <div key={stat.label}>
-                    <p className="text-2xl font-bold tabular-nums text-gray-950">
+                    <p className="text-2xl font-bold tabular-nums text-[color:var(--fg)]">
                       {stat.value}
                     </p>
-                    <p className="mt-1 text-xs font-medium uppercase tracking-wider text-gray-400">
+                    <p className="mt-1 text-xs font-medium uppercase tracking-wider text-[color:var(--faint)]">
                       {stat.label}
                     </p>
                   </div>
@@ -57,7 +66,7 @@ export function AboutSection() {
           </ScrollReveal>
 
           <ScrollReveal animation="fade-right" delay={150}>
-            <aside className="overflow-hidden rounded-2xl bg-gray-950 text-white">
+            <aside className="overflow-hidden rounded-2xl border border-[color:var(--about-card-border)] bg-[color:var(--about-card-bg)] shadow-[var(--about-card-shadow)]">
               <div className="aspect-[4/3] overflow-hidden">
                 <Image
                   src="/founder.png"
@@ -74,14 +83,10 @@ export function AboutSection() {
                   Why it works
                 </p>
                 <div className="mt-5 grid gap-4">
-                  {[
-                    "You work directly with me.",
-                    "Professional from day one.",
-                    "Designed to stay simple on your side.",
-                  ].map((item) => (
+                  {aboutHighlights.map((item) => (
                     <p
                       key={item}
-                      className="border-l-2 border-[color:var(--brand)] pl-4 text-sm leading-6 text-gray-300"
+                      className="border-l-2 border-[color:var(--brand)]/80 pl-4 text-sm leading-6 text-[color:var(--about-card-muted)]"
                     >
                       {item}
                     </p>

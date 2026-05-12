@@ -1,6 +1,6 @@
-import { v2WhyItMatters } from "@/content/site";
+import { whyItMatters } from "@/content/site";
 
-const stats = v2WhyItMatters.stats;
+const stats = whyItMatters.stats;
 
 export function WhyItMattersStatGrid() {
   return (
@@ -9,12 +9,12 @@ export function WhyItMattersStatGrid() {
         <div
           key={stat.value}
           role="listitem"
-          className="rounded-xl border border-gray-200 bg-white px-5 py-6 shadow-sm"
+          className="rounded-xl border border-[color:var(--border-subtle)] bg-[color:var(--elevated)] px-5 py-6 shadow-[0_1px_0_rgb(255_255_255_/_0.04)_inset]"
         >
           <span className="block text-3xl font-bold tracking-tight text-[color:var(--brand)] sm:text-4xl">
             {stat.value}
           </span>
-          <p className="mt-1.5 text-sm leading-snug text-gray-600">
+          <p className="mt-1.5 text-sm leading-snug text-[color:var(--muted)]">
             {stat.label}
           </p>
         </div>

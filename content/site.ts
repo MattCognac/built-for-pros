@@ -1,3 +1,9 @@
+import {
+  DEFAULT_HERO_VARIANT_ID,
+  isHeroVariantId,
+  type HeroVariantId,
+} from "@/lib/hero-test";
+
 export type NavItem = {
   label: string;
   href: `#${string}`;
@@ -38,24 +44,14 @@ export type FaqItem = {
   answer: string;
 };
 
-export type Testimonial = {
-  name: string;
-  company: string;
-  quote: string;
-};
+export type HeroLayout = "split" | "centered";
 
-export type BlogPostMeta = {
-  slug: string;
-  title: string;
+export type HeroVariant = {
+  id: HeroVariantId;
+  layout: HeroLayout;
+  eyebrow: string;
+  titleLines?: readonly string[];
   description: string;
-  publishedAt: string;
-};
-
-export type CaseStudyMeta = {
-  slug: string;
-  client: string;
-  trade: string;
-  summary: string;
 };
 
 export const siteConfig = {
@@ -67,13 +63,11 @@ export const siteConfig = {
   emailHref: "mailto:hello@builtforpros.com",
   primaryCtaLabel: "Schedule a Free Call",
   primaryCtaHref: "https://cal.com/built-for-pros/free-call",
+  heroPrimaryCtaLabel: "Let's Talk Growth",
+  heroSecondaryCtaLabel: "Learn more",
+  heroSecondaryCtaHref: "#why-it-matters",
   leadFormSuccess:
     "Got it. I'll be in touch with your free guide and next steps soon.",
-  socialLinks: [
-    { label: "Instagram", href: "#" },
-    { label: "LinkedIn", href: "#" },
-    { label: "Facebook", href: "#" },
-  ],
 } as const;
 
 export const navItems: NavItem[] = [
@@ -81,24 +75,31 @@ export const navItems: NavItem[] = [
   { label: "Services", href: "#services" },
   { label: "Pricing", href: "#pricing" },
   { label: "About", href: "#about" },
+  { label: "Free Guide", href: "#lead-magnet" },
   { label: "FAQ", href: "#faq" },
 ];
 
-export const heroContent = {
-  titleLine1: "You run your crew.",
-  titleLine2Lead: "We run ",
-  titleEmphasis: "your marketing.",
-  description:
-    "Website, SEO, Google presence, and lead flow — built and managed so you can focus on the work.",
-} as const;
+export const heroVariants = {
+  main: {
+    id: "main",
+    layout: "split",
+    eyebrow: "Contractor Marketing, Simplified",
+    description:
+      "You didn't start your business to learn SEO. We take care of your website, search rankings, reviews, and ads so you can focus on what you do best.",
+  },
+  secondary: {
+    id: "secondary",
+    layout: "centered",
+    eyebrow: "Contractor Marketing, Simplified",
+    titleLines: ["You run your crew.", "We run your marketing."],
+    description:
+      "Websites, Google presence, reviews, SEO, and ads handled for you, so the phone keeps ringing while you stay focused on the work.",
+  },
+} satisfies Record<HeroVariantId, HeroVariant>;
 
-export const v2HeroContent = {
-  titleLine1: "You run your crew.",
-  titleLine2Lead: "We run ",
-  titleEmphasis: "your marketing.",
-  description:
-    "You didn't start your business to learn SEO. We take care of your website, search rankings, reviews, and ads so you can focus on what you do best.",
-} as const;
+export function getHeroVariant(value: string | null | undefined): HeroVariant {
+  return heroVariants[isHeroVariantId(value) ? value : DEFAULT_HERO_VARIANT_ID];
+}
 
 export const socialProofBrands = [
   "Structura",
@@ -108,27 +109,7 @@ export const socialProofBrands = [
   "Core_Site",
 ] as const;
 
-export const valueProposition = {
-  eyebrow: "Why it works",
-  title: "You're a pro at your trade. We're pros at ours.",
-  description:
-    "You didn't get into contracting to learn SEO. We handle the marketing so you can focus on the work that built your reputation.",
-  contractorFocus: [
-    "Running your crew",
-    "Closing jobs",
-    "Delivering great work",
-    "Growing your business",
-  ],
-  ourFocus: [
-    "Your website",
-    "SEO & Google visibility",
-    "Reviews & reputation",
-    "Lead generation",
-  ],
-} as const;
-
-/** v2 `#why-it-matters` — data-backed validation section before "how it works." */
-export const v2WhyItMatters = {
+export const whyItMatters = {
   eyebrow: "Why it matters",
   title: "Your next customer is searching for you.",
   paragraphs: [
@@ -190,28 +171,10 @@ export const services: ServiceItem[] = [
     icon: "monitor",
   },
   {
-    title: "SEO",
+    title: "Monthly content",
     description:
-      "Show up when someone searches for the services you actually want more of.",
-    icon: "search",
-  },
-  {
-    title: "Google Business Profile",
-    description:
-      "The listing most contractors know they should care about — kept optimized and up to date.",
-    icon: "map",
-  },
-  {
-    title: "Directory coverage",
-    description:
-      "Thumbtack, Angi, Yelp, and other listings kept complete and consistent.",
-    icon: "folders",
-  },
-  {
-    title: "Review management",
-    description:
-      "More of the right reviews, without responses becoming another thing on your plate.",
-    icon: "star",
+      "Fresh posts that keep Google paying attention and your site climbing in search.",
+    icon: "fileText",
   },
   {
     title: "Google Ads & lead gen",
@@ -220,22 +183,40 @@ export const services: ServiceItem[] = [
     icon: "megaphone",
   },
   {
-    title: "Call tracking",
+    title: "SEO",
     description:
-      "Know exactly where your leads come from so you can see what's working.",
-    icon: "phoneIncoming",
-  },
-  {
-    title: "Monthly content",
-    description:
-      "Fresh posts that keep Google paying attention and your site climbing in search.",
-    icon: "fileText",
+      "Show up when someone searches for the services you actually want more of.",
+    icon: "search",
   },
   {
     title: "City & service area pages",
     description:
       "Dedicated pages for every town you serve so you show up in more local searches.",
     icon: "mapPinned",
+  },
+  {
+    title: "Google Business Profile",
+    description:
+      "The listing most contractors know they should care about — kept optimized and up to date.",
+    icon: "map",
+  },
+  {
+    title: "Call tracking",
+    description:
+      "Know exactly where your leads come from so you can see what's working.",
+    icon: "phoneIncoming",
+  },
+  {
+    title: "Review management",
+    description:
+      "More of the right reviews, without responses becoming another thing on your plate.",
+    icon: "star",
+  },
+  {
+    title: "Directory coverage",
+    description:
+      "Thumbtack, Angi, Yelp, and other listings kept complete and consistent.",
+    icon: "folders",
   },
 ];
 
@@ -259,7 +240,7 @@ export const pricingPlans: PricingPlan[] = [
     name: "Growth",
     price: "$599/mo",
     summary: "Wider reach, stronger local presence, and review momentum.",
-    featured: true,
+    featured: false,
     features: [
       "Everything in Foundation",
       "City and service area pages for expanded reach",
@@ -281,16 +262,51 @@ export const pricingPlans: PricingPlan[] = [
       "Weekly ad performance monitoring and optimization",
       "Landing page optimization for ad campaigns",
       "Monthly report with lead attribution and cost per lead",
-      "Quarterly strategy call",
     ],
   },
 ];
 
-export const pricingNotes = [
-  "All plans include a 12-month commitment. No setup fees.",
-  "Accelerator ad spend is separate and paid directly to Google. Recommended minimum: $200–300/month.",
-  "Most clients see their plan pay for itself with a single job.",
-] as const;
+export const foundingOffer = {
+  eyebrow: "Limited Availability",
+  title: "Partner",
+  subtitle: "You get everything in our Accelerator plan at nearly half the price. We're keeping this rate low because we're growing too — and your results become the proof that helps us both.",
+  description:
+    "We're hand-selecting 10 partner clients to get our complete Accelerator system at a reduced rate. In exchange, you help us build the case studies, testimonials, and referrals that grow this business. Once all 10 spots are filled, this offer is retired permanently.",
+  price: "$499/mo",
+  originalPrice: "$899/mo + ad spend",
+  spotsTotal: 10,
+  spotsRemaining: 7,
+  commitment: "12-month commitment",
+  includes: [
+    "Custom-built website, hosting, and maintenance",
+    "Google Ads / Local Service Ads management and optimization",
+    "Full SEO: on-page optimization, monthly content, and city/service area pages",
+    "Google Business Profile setup and ongoing management",
+    "Review management and automated review requests",
+    "Call tracking, directory presence, and monthly reporting",
+    "First month of Google ad spend covered (up to $300)",
+    "Rate locked for life — your price never goes up",
+  ],
+  youProvide: [
+    "Share a quick video about your experience after 90 days",
+    "Let us tell your before/after story as a case study",
+    "Leave us an honest Google review",
+    "Introduce us to a couple business owners you know",
+  ],
+} as const;
+
+export const partnerFounderNote = {
+  eyebrow: "Why this exists",
+  title: "This is not a discount. It's a trade.",
+  paragraphs: [
+    "Built for Pros is growing too. Instead of charging the full Accelerator rate to the first group of clients, I'm opening a small number of partner spots for contractors willing to help me prove the system publicly.",
+    "You get the full system at nearly half the price, locked in for life. In return, your results become the proof — case studies, a quick video, an honest review, and a couple of intros to other owners you respect.",
+    "That's the trade. Real partners, not anonymous logos. Once these spots are filled, the offer is retired permanently.",
+  ],
+  quote:
+    "I'd rather build this with ten contractors who actually want to win together than sell a hundred subscriptions and hope it sticks.",
+  attribution: "Matt Hennessy, founder",
+} as const;
 
 export const founderStory = [
   "I spent more than a decade working in the trades — handyman work, building maintenance, contractor environments where word of mouth was everything.",
@@ -346,86 +362,3 @@ export const faqItems: FaqItem[] = [
       "I've spent over a decade working in the trades myself. I'm not a marketing agency that learned your business from Google. I understand how contractors think, what a real lead looks like, and how to keep the whole thing simple.",
   },
 ];
-
-export type ServicePillar = {
-  title: string;
-  description: string;
-  icon:
-    | "monitor"
-    | "search"
-    | "phoneIncoming"
-    | "megaphone"
-    | "star"
-    | "clipboardList"
-    | "mail"
-    | "video"
-    | "calendar";
-  imageUrl?: string;
-};
-
-export const servicePillars: ServicePillar[] = [
-  {
-    title: "High Performance Websites",
-    description:
-      "Built to convert high-value homeowners into scheduled quotes, not just visitors.",
-    icon: "monitor",
-    imageUrl: "/svc-welding.jpg",
-  },
-  {
-    title: "Local SEO Domination",
-    description:
-      "Own the map pack for your city's most profitable search terms.",
-    icon: "search",
-    imageUrl: "/hero-bg.jpg",
-  },
-  {
-    title: "Lead Flow Control",
-    description:
-      "Automated text-back and appointment setting for every inquiry.",
-    icon: "phoneIncoming",
-    imageUrl: "/cta-steel.jpg",
-  },
-  {
-    title: "Targeted Google Ads",
-    description:
-      "Aggressive placement where it matters. We stop your competitors from stealing your best jobs.",
-    icon: "megaphone",
-    imageUrl: "/svc-roof.jpg",
-  },
-  {
-    title: "Reputation & Reviews",
-    description:
-      "Turn happy customers into visible proof where prospects look first.",
-    icon: "star",
-  },
-  {
-    title: "Reporting & Insights",
-    description:
-      "Know what's working: calls, forms, and trends without digging through dashboards.",
-    icon: "clipboardList",
-  },
-  {
-    title: "Email & SMS Nurture",
-    description:
-      "Stay top-of-mind after the first touch with sequences that sound human, not automated.",
-    icon: "mail",
-  },
-  {
-    title: "Photo & Video Assets",
-    description:
-      "Project highlights and truck-roll content that make your crew look as professional as your work.",
-    icon: "video",
-  },
-  {
-    title: "Quarterly Strategy Calls",
-    description:
-      "Scheduled check-ins to adjust priorities, budgets, and messaging as your season changes.",
-    icon: "calendar",
-  },
-];
-
-export const testimonials: Testimonial[] = [];
-
-export const futureBlogPosts: BlogPostMeta[] = [];
-
-export const futureCaseStudies: CaseStudyMeta[] = [];
