@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Menu } from "lucide-react";
+import { ArrowUpRight, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { BrandLogo } from "@/components/brand-logo";
-import { foundingOffer, navItems, siteConfig } from "@/content/site";
+import { navItems, siteConfig } from "@/content/site";
 import {
   DEFAULT_HERO_VARIANT_ID,
   HERO_VARIANT_COOKIE,
@@ -47,39 +47,6 @@ function glassProgress(scrollY: number, viewportHeight: number): number {
   if (scrollY <= startPx) return 0;
   if (scrollY >= endPx) return 1;
   return (scrollY - startPx) / spanPx;
-}
-
-function PartnerDealBar() {
-  const spotsLabel = `${foundingOffer.spotsRemaining} of ${foundingOffer.spotsTotal} spots left`;
-
-  return (
-    <a
-      href={siteConfig.primaryCtaHref}
-      target="_blank"
-      rel="noreferrer"
-      className="group block border-b border-white/15 bg-[color:var(--brand)] text-white transition hover:bg-[color:var(--brand-strong)]"
-      aria-label={`Schedule a call for the partner deal: ${foundingOffer.price}, normally ${foundingOffer.originalPrice}. ${spotsLabel}.`}
-    >
-      <div className="mx-auto flex min-h-10 w-full max-w-none items-center justify-center gap-2 px-5 py-2 text-center text-xs font-semibold sm:px-8 sm:text-sm lg:px-12 xl:px-16">
-        <span className="hidden rounded-full bg-white/18 px-2.5 py-1 text-[10px] uppercase tracking-[0.16em] sm:inline-flex">
-          Partner deal
-        </span>
-        <span className="min-w-0">
-          <span className="font-bold">Accelerator for {foundingOffer.price}</span>
-          <span className="hidden sm:inline">
-            {" "}
-            instead of {foundingOffer.originalPrice}
-          </span>
-          <span className="mx-2 text-white/55">|</span>
-          <span>{spotsLabel}</span>
-        </span>
-        <span className="hidden items-center gap-1 whitespace-nowrap text-white/90 transition group-hover:translate-x-0.5 md:inline-flex">
-          Schedule call
-          <ArrowRight className="size-3.5" strokeWidth={2.4} />
-        </span>
-      </div>
-    </a>
-  );
 }
 
 type SiteHeaderVariant = "default" | "partner";
@@ -130,7 +97,6 @@ export function SiteHeader({ variant = "default" }: SiteHeaderProps = {}) {
         WebkitBackdropFilter: `blur(${18 * p}px) saturate(${100 + 40 * p}%)`,
       }}
     >
-      {isPartner ? null : <PartnerDealBar />}
       <div className="mx-auto grid h-16 w-full max-w-none grid-cols-[1fr_auto] items-center gap-x-4 px-5 sm:px-8 md:h-[4.5rem] md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-x-8 lg:px-12 xl:px-16">
         <div className="col-start-1 row-start-1 flex items-center gap-2 justify-self-start">
           <Link href="/" className="transition-opacity hover:opacity-85">

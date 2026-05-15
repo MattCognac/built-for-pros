@@ -137,6 +137,12 @@ export function HeroSection({ variant }: HeroSectionProps) {
           <ScrollReveal delay={420}>
             <div className={getCtaGroupClassName(variant.layout)}>
               <a
+                href={siteConfig.heroSecondaryCtaHref}
+                className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 text-sm font-semibold text-white shadow-[0_1px_0_rgb(255_255_255_/_0.04)_inset] transition hover:border-white/40 hover:bg-white/10 sm:px-8"
+              >
+                {siteConfig.heroSecondaryCtaLabel}
+              </a>
+              <a
                 href={siteConfig.primaryCtaHref}
                 target="_blank"
                 rel="noreferrer"
@@ -144,12 +150,6 @@ export function HeroSection({ variant }: HeroSectionProps) {
               >
                 {siteConfig.heroPrimaryCtaLabel}
                 <ArrowRight className="size-4" strokeWidth={2.5} />
-              </a>
-              <a
-                href={siteConfig.heroSecondaryCtaHref}
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 text-sm font-semibold text-white shadow-[0_1px_0_rgb(255_255_255_/_0.04)_inset] transition hover:border-white/40 hover:bg-white/10 sm:px-8"
-              >
-                {siteConfig.heroSecondaryCtaLabel}
               </a>
             </div>
           </ScrollReveal>

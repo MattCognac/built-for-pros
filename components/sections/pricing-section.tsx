@@ -1,6 +1,7 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CircleHelp } from "lucide-react";
 
 import { pricingPlans, siteConfig } from "@/content/site";
+import { PricingDetailsActions } from "@/components/sections/pricing-details-actions";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
@@ -15,7 +16,7 @@ export function PricingSection() {
           <SectionHeading
             eyebrow="Pricing"
             title="You're one choice away from a pipeline that delivers."
-            description="We've built flexible plans that are designed to support your business wherever it's at."
+            description="Flexible plans designed to support your business wherever it's at."
             align="center"
             tone="feature"
           />
@@ -23,17 +24,17 @@ export function PricingSection() {
 
         <div className="mt-16 grid gap-6 lg:grid-cols-3">
           {pricingPlans.map((plan, index) => (
-            <ScrollReveal key={plan.name} delay={index * 120}>
+            <ScrollReveal key={plan.name} delay={index * 120} className="[&:has(.group:hover)]:z-10 [&:has(.group:focus-within)]:z-10">
               <div
                 className={`flex h-full flex-col rounded-2xl p-7 sm:p-8 ${
                   plan.featured
                     ? "relative border border-[color:var(--brand)]/35 bg-[color:var(--pricing-featured-bg)] text-[color:var(--pricing-featured-fg)] shadow-[0_0_0_1px_rgb(249_99_2_/_0.12),var(--shadow-soft)]"
-                    : "border border-[color:var(--pricing-card-border)] bg-[color:var(--pricing-card-bg)] text-[color:var(--pricing-card-fg)] shadow-[0_1px_0_rgb(255_255_255_/_0.04)_inset] transition hover:border-[color:var(--feature-border-hover)]"
+                    : "border border-[color:var(--pricing-card-border)] bg-[color:var(--pricing-card-bg)] text-[color:var(--pricing-card-fg)] shadow-[0_1px_0_rgb(255_255_255_/_0.04)_inset]"
                 }`}
               >
                 {plan.featured ? (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[color:var(--brand)] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white shadow-md">
-                    Popular
+                    {plan.badge ?? "Popular"}
                   </span>
                 ) : null}
 
@@ -76,23 +77,49 @@ export function PricingSection() {
                 </p>
 
                 <ul className="mt-6 grid gap-2.5">
-                  {plan.features.map((feature, i) => (
+                  {plan.features.map((feature) => (
                     <li
-                      key={feature}
+                      key={feature.label}
                       className={`flex items-start gap-2 text-sm leading-6 ${
-                        i === 0
-                          ? plan.featured
-                            ? "font-semibold text-[color:var(--pricing-featured-fg)]"
-                            : "font-semibold text-[color:var(--pricing-card-strong)]"
-                          : plan.featured
-                            ? "text-[color:var(--pricing-featured-muted)]"
-                            : "text-[color:var(--pricing-card-muted)]"
+                        plan.featured
+                          ? "text-[color:var(--pricing-featured-muted)]"
+                          : "text-[color:var(--pricing-card-muted)]"
                       }`}
                     >
                       <span className="shrink-0 font-medium text-[color:var(--brand)]">
                         +
                       </span>
-                      <span className="min-w-0 flex-1">{feature}</span>
+                      <span className="min-w-0 flex-1">
+                        <span
+                          className={
+                            feature.emphasized
+                              ? plan.featured
+                                ? "font-bold text-[color:var(--pricing-featured-fg)]"
+                                : "font-bold text-[color:var(--pricing-card-strong)]"
+                              : undefined
+                          }
+                        >
+                          {feature.label}
+                        </span>
+                        {feature.description ? (
+                          <span className="group relative ml-1.5 inline-flex align-middle">
+                            <button
+                              type="button"
+                              aria-label={`More about ${feature.label}`}
+                              className="inline-flex rounded-full text-[color:var(--feature-faint)] transition hover:text-[color:var(--brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand)]/40"
+                            >
+                              <CircleHelp
+                                className="size-3.5"
+                                strokeWidth={2}
+                                aria-hidden="true"
+                              />
+                            </button>
+                            <span className="invisible absolute bottom-full left-1/2 z-50 mb-2 w-80 max-w-[calc(100vw-2rem)] -translate-x-1/2 rounded-lg border border-[color:var(--feature-border-subtle)] bg-[color:var(--feature-elevated-strong)] px-3 py-2 text-xs font-normal leading-5 text-[color:var(--feature-fg)] opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                              {feature.description}
+                            </span>
+                          </span>
+                        ) : null}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -108,7 +135,7 @@ export function PricingSection() {
                         : "border border-[color:var(--feature-border-hover)] text-[color:var(--feature-fg)] hover:border-[color:var(--brand)]/35 hover:bg-[color:var(--feature-elevated-strong)]"
                     }`}
                   >
-                    {siteConfig.primaryCtaLabel}
+                    Start {plan.name}
                     <ArrowRight className="size-4" strokeWidth={2} />
                   </a>
                 </div>
@@ -118,11 +145,7 @@ export function PricingSection() {
         </div>
 
         <ScrollReveal delay={200} animation="fade-in">
-          <p className="mx-auto mt-12 max-w-2xl text-center text-sm leading-7 text-[color:var(--feature-faint)]">
-            12-month commitment, no setup fees. Accelerator ad spend paid
-            directly to Google (recommended $200–300/mo). Most clients see
-            their plan pay for itself with a single job.
-          </p>
+          <PricingDetailsActions />
         </ScrollReveal>
       </div>
     </section>

@@ -36,7 +36,43 @@ export type PricingPlan = {
   priceSuffix?: string;
   summary: string;
   featured?: boolean;
-  features: string[];
+  badge?: string;
+  features: PricingFeature[];
+};
+
+export type PricingFeature = {
+  label: string;
+  description?: string;
+  emphasized?: boolean;
+};
+
+export type AdsBoltOn = {
+  name: string;
+  price: string;
+  availability: string;
+  summary: string;
+  features: AdsBoltOnFeature[];
+  note: string;
+};
+
+export type AdsBoltOnFeature = {
+  label: string;
+  description?: string;
+  emphasized?: boolean;
+};
+
+export type PricingComparisonCell = boolean | string;
+
+export type PricingComparisonRow = {
+  feature: string;
+  foundation: PricingComparisonCell;
+  growth: PricingComparisonCell;
+  accelerator: PricingComparisonCell;
+};
+
+export type PricingComparisonGroup = {
+  category: string;
+  rows: PricingComparisonRow[];
 };
 
 export type FaqItem = {
@@ -91,7 +127,7 @@ export const heroVariants = {
     id: "secondary",
     layout: "centered",
     eyebrow: "Contractor Marketing, Simplified",
-    titleLines: ["You run your crew.", "We run your marketing."],
+    titleLines: ["You run the jobsite.", "We run your marketing."],
     description:
       "Websites, Google presence, reviews, SEO, and ads handled for you, so the phone keeps ringing while you stay focused on the work.",
   },
@@ -224,89 +260,356 @@ export const pricingPlans: PricingPlan[] = [
   {
     name: "Foundation",
     price: "$299/mo",
-    summary: "A professional online foundation with steady SEO support.",
+    summary:
+      "Best for owner-operators who need a credible online presence without managing marketing themselves.",
     features: [
-      "Custom-built professional website",
-      "Website hosting and maintenance",
-      "On-page SEO and keyword targeting",
-      "Monthly SEO content",
-      "Google Business Profile setup and optimization",
-      "Basic directory citations",
-      "Call tracking included",
-      "Monthly performance summary",
+      {
+        label: "Custom-built professional website",
+        emphasized: true,
+        description:
+          "A custom site that matches your branding and how you really work—clear services, proof of work, and an easy path to call or book so homeowners choose you over the next listing.",
+      },
+      {
+        label: "Managed hosting & maintenance",
+        description:
+          "Your site stays live, secure, and updated without extra hosting work.",
+      },
+      {
+        label: "Anytime site updates",
+        description:
+          "Small website updates handled for you so your services, photos, offers, and business details stay current without editing the site yourself.",
+      },
+      {
+        label: "On-page SEO foundation",
+        description:
+          "Page titles, descriptions, and keywords set up so Google knows what you do and where you do it.",
+      },
+      {
+        label: "Google Business Profile setup",
+        description:
+          "Your categories, services, photos, hours, and service area filled out correctly so your listing looks complete when homeowners find it.",
+      },
+      {
+        label: "Monthly Google Business Profile post",
+        description:
+          "One post per month to your Google listing — a completed job, a seasonal tip, or a service highlight — so your profile stays active and signals a business that's thriving.",
+      },
+      {
+        label: "Core business listing sync",
+        description:
+          "Your name, phone, address, and website kept accurate on Google, Apple Maps, Bing, Yelp, and Facebook so customers never hit outdated info.",
+      },
     ],
   },
   {
     name: "Growth",
-    price: "$599/mo",
-    summary: "Wider reach, stronger local presence, and review momentum.",
-    featured: false,
+    price: "$449/mo",
+    summary:
+      "Best for established shops that want more local visibility and consistent review growth from completed jobs.",
+    featured: true,
+    badge: "Popular",
     features: [
-      "Everything in Foundation",
-      "City and service area pages for expanded reach",
-      "Active monthly Google Business management",
-      "Full directory presence",
-      "Review response management",
-      "Automated review request system",
-      "Detailed monthly performance report",
+      {
+        label: "City and service area pages",
+        emphasized: true,
+        description:
+          "Dedicated pages like \"Kitchen Remodeling in Beaverton\" or \"Water Heater Repair in Salem\" so Google has a specific page to rank for each town and service you want calls from.",
+      },
+      {
+        label: "Automated review request system",
+        emphasized: true,
+        description:
+          "After a job is done, your customer gets a text or email with a direct link to leave a Google review while the work is still fresh.",
+      },
+      {
+        label: "Professional review responses",
+        emphasized: true,
+        description:
+          "We write and post responses to every new Google review — good or bad — so homeowners see a business that is active, professional, and easy to work with.",
+      },
+      {
+        label: "Monthly project spotlight",
+        emphasized: true,
+        description:
+          "We turn one completed job into a short write-up with photos, location, and what was done, then publish it to your site and Google profile so future customers see your actual work.",
+      },
+      {
+        label: "CRM or booking integration",
+        description:
+          "We connect your job management or booking system so review requests go out automatically after every completed job.",
+      },
+      {
+        label: "Home-service directory profiles",
+        description:
+          "Full profiles built out on Angi, Thumbtack, Houzz, Nextdoor, and Porch with your photos, services, and service areas so you show up wherever homeowners are looking.",
+      },
+      {
+        label: "Monthly performance summary",
+        description:
+          "A clear report each month covering where your calls came from, how your search rankings moved, what reviews came in, and what we are working on next.",
+      },
+      { label: "Everything in Foundation" },
     ],
   },
   {
     name: "Accelerator",
-    price: "$899/mo",
-    priceSuffix: "+ ad spend",
-    summary: "Paid lead generation on top of the full organic system.",
+    price: "$799/mo",
+    summary:
+      "Best for busy teams missing calls or slow follow-up who want to convert more of the leads they already get.",
     features: [
-      "Everything in Growth",
-      "Google Ads / Local Service Ads management",
-      "Weekly ad performance monitoring and optimization",
-      "Landing page optimization for ad campaigns",
-      "Monthly report with lead attribution and cost per lead",
+      {
+        label: "Missed call text-back",
+        emphasized: true,
+        description:
+          "When someone calls and you can't answer, they get an automatic text within seconds from your business so they know you got it and don't move on to the next contractor.",
+      },
+      {
+        label: "Automatic lead follow-up",
+        emphasized: true,
+        description:
+          "When a new lead fills out your form or reaches out but doesn't reply or book, they get a short series of texts or emails from your business over the next few days to bring them back before they call someone else.",
+      },
+      {
+        label: "Custom AI chat widget",
+        emphasized: true,
+        description:
+          "A custom-trained website assistant built around your services, service area, qualification rules, and intake flow — not a generic plugin — so it can answer job-specific questions, capture structured lead details, and hand off clean follow-up context.",
+      },
+      {
+        label: "Monthly email newsletter",
+        description:
+          "One email per month to past customers and open leads with seasonal tips, maintenance reminders, or project ideas so your business stays top of mind when they need work done again.",
+      },
+      {
+        label: "Quarterly strategy call",
+        description:
+          "Every quarter we review what brought in calls, which pages and searches are gaining traction, what is not working, and what to focus on next.",
+      },
+      {
+        label: "Quarterly technical SEO audit",
+        description:
+          "Every quarter we dig into your search data to see which keywords and pages are gaining traction, then adjust your strategy to double down on what's driving calls.",
+      },
+      { label: "Everything in Growth" },
     ],
   },
 ];
 
-export const foundingOffer = {
-  eyebrow: "Limited Availability",
-  title: "Partner",
-  subtitle: "You get everything in our Accelerator plan at nearly half the price. We're keeping this rate low because we're growing too — and your results become the proof that helps us both.",
-  description:
-    "We're hand-selecting 10 partner clients to get our complete Accelerator system at a reduced rate. In exchange, you help us build the case studies, testimonials, and referrals that grow this business. Once all 10 spots are filled, this offer is retired permanently.",
-  price: "$499/mo",
-  originalPrice: "$899/mo + ad spend",
-  spotsTotal: 10,
-  spotsRemaining: 7,
-  commitment: "12-month commitment",
-  includes: [
-    "Custom-built website, hosting, and maintenance",
-    "Google Ads / Local Service Ads management and optimization",
-    "Full SEO: on-page optimization, monthly content, and city/service area pages",
-    "Google Business Profile setup and ongoing management",
-    "Review management and automated review requests",
-    "Call tracking, directory presence, and monthly reporting",
-    "First month of Google ad spend covered (up to $300)",
-    "Rate locked for life — your price never goes up",
+export const adsBoltOn: AdsBoltOn = {
+  name: "Professional Ads Management",
+  price: "+$399/mo",
+  availability: "Available on any plan",
+  summary:
+    "Best for businesses that want faster lead flow while SEO builds and prefer hands-off ads management with clear monthly reporting.",
+  features: [
+    {
+      label: "Dedicated landing page built for ad traffic",
+      emphasized: true,
+      description:
+        "A focused page built around the ad offer, trade, and service area so paid clicks land somewhere designed to convert instead of a generic homepage.",
+    },
+    {
+      label: "Google Local Services Ads setup and verification support",
+      emphasized: true,
+      description:
+        "We help set up the Google-screened lead channel, categories, service areas, and verification steps so qualified homeowners can contact you directly from Google.",
+    },
+    {
+      label: "Retargeting display ads for recent website visitors",
+      emphasized: true,
+      description:
+        "Follow-up ads shown to people who already visited your site, keeping your business in front of warmer prospects while they compare contractors.",
+    },
+    {
+      label: "Campaign configuration, budget pacing, and weekly monitoring",
+      description:
+        "We configure targeting, budgets, and campaign settings, then monitor performance weekly so spend stays controlled and the campaign keeps improving.",
+    },
+    {
+      label: "Monthly report with lead attribution and cost per lead",
+      description:
+        "A monthly view of which paid channels produced leads, what those leads cost, and what should be adjusted next.",
+    },
   ],
-  youProvide: [
-    "Share a quick video about your experience after 90 days",
-    "Let us tell your before/after story as a case study",
-    "Leave us an honest Google review",
-    "Introduce us to a couple business owners you know",
-  ],
-} as const;
+  note: "Recommended ad spend varies by trade and market. Paid directly to Google, never to Built for Pros.",
+};
 
-export const partnerFounderNote = {
-  eyebrow: "Why this exists",
-  title: "This is not a discount. It's a trade.",
-  paragraphs: [
-    "Built for Pros is growing too. Instead of charging the full Accelerator rate to the first group of clients, I'm opening a small number of partner spots for contractors willing to help me prove the system publicly.",
-    "You get the full system at nearly half the price, locked in for life. In return, your results become the proof — case studies, a quick video, an honest review, and a couple of intros to other owners you respect.",
-    "That's the trade. Real partners, not anonymous logos. Once these spots are filled, the offer is retired permanently.",
-  ],
-  quote:
-    "I'd rather build this with ten contractors who actually want to win together than sell a hundred subscriptions and hope it sticks.",
-  attribution: "Matt Hennessy, founder",
-} as const;
+export const pricingComparisonGroups: PricingComparisonGroup[] = [
+  {
+    category: "Website & Foundation",
+    rows: [
+      {
+        feature: "Custom-built professional website",
+        foundation: true,
+        growth: true,
+        accelerator: true,
+      },
+      {
+        feature: "Managed hosting & maintenance",
+        foundation: true,
+        growth: true,
+        accelerator: true,
+      },
+      {
+        feature: "Anytime site updates",
+        foundation: true,
+        growth: true,
+        accelerator: true,
+      },
+      {
+        feature: "Google Business Profile setup",
+        foundation: true,
+        growth: true,
+        accelerator: true,
+      },
+      {
+        feature: "On-page SEO foundation",
+        foundation: true,
+        growth: true,
+        accelerator: true,
+      },
+      {
+        feature: "Core business listing sync",
+        foundation: true,
+        growth: true,
+        accelerator: true,
+      },
+    ],
+  },
+  {
+    category: "Local SEO & Content",
+    rows: [
+      {
+        feature: "Monthly Google Business Profile post",
+        foundation: true,
+        growth: true,
+        accelerator: true,
+      },
+      {
+        feature: "Monthly project spotlight",
+        foundation: false,
+        growth: true,
+        accelerator: true,
+      },
+      {
+        feature: "Home-service directory profiles",
+        foundation: false,
+        growth: true,
+        accelerator: true,
+      },
+      {
+        feature: "City and service area pages",
+        foundation: false,
+        growth: true,
+        accelerator: true,
+      },
+    ],
+  },
+  {
+    category: "Reviews & Reputation",
+    rows: [
+      {
+        feature: "Automated review request system",
+        foundation: false,
+        growth: true,
+        accelerator: true,
+      },
+      {
+        feature: "CRM or booking integration",
+        foundation: false,
+        growth: true,
+        accelerator: true,
+      },
+      {
+        feature: "Professional review responses",
+        foundation: false,
+        growth: true,
+        accelerator: true,
+      },
+    ],
+  },
+  {
+    category: "Automation",
+    rows: [
+      {
+        feature: "Missed call text-back",
+        foundation: false,
+        growth: false,
+        accelerator: true,
+      },
+      {
+        feature: "Custom AI chat widget",
+        foundation: false,
+        growth: false,
+        accelerator: true,
+      },
+      {
+        feature: "Automatic lead follow-up",
+        foundation: false,
+        growth: false,
+        accelerator: true,
+      },
+    ],
+  },
+  {
+    category: "Retention & Strategy",
+    rows: [
+      {
+        feature: "Monthly performance summary",
+        foundation: false,
+        growth: true,
+        accelerator: true,
+      },
+      {
+        feature: "Monthly email newsletter",
+        foundation: false,
+        growth: false,
+        accelerator: true,
+      },
+      {
+        feature: "Quarterly strategy call",
+        foundation: false,
+        growth: false,
+        accelerator: true,
+      },
+      {
+        feature: "Quarterly technical SEO audit",
+        foundation: false,
+        growth: false,
+        accelerator: true,
+      },
+    ],
+  },
+  {
+    category: "Ads Add-On",
+    rows: [
+      {
+        feature: "Local Services Ads management",
+        foundation: "add-on",
+        growth: "add-on",
+        accelerator: "add-on",
+      },
+      {
+        feature: "Retargeting display ads",
+        foundation: "add-on",
+        growth: "add-on",
+        accelerator: "add-on",
+      },
+      {
+        feature: "Ad landing page",
+        foundation: "add-on",
+        growth: "add-on",
+        accelerator: "add-on",
+      },
+      {
+        feature: "Lead attribution report",
+        foundation: "add-on",
+        growth: "add-on",
+        accelerator: "add-on",
+      },
+    ],
+  },
+];
 
 export const founderStory = [
   "I spent more than a decade working in the trades — handyman work, building maintenance, contractor environments where word of mouth was everything.",
